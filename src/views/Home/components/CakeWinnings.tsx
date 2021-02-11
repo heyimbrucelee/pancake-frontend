@@ -2,27 +2,26 @@ import React from 'react'
 import { useTotalClaim } from 'hooks/useTickets'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { usePriceCakeBusd } from 'state/hooks'
-import { BigNumber } from 'bignumber.js';
+import { BigNumber } from 'bignumber.js'
 import styled from 'styled-components'
 import CardValue from './CardValue'
+import CardBusdValue from './CardBusdValue'
 
 const CakeWinnings = () => {
   const { claimAmount } = useTotalClaim()
-  const claimAmountDollar = new BigNumber(claimAmount).multipliedBy(usePriceCakeBusd()).toNumber()
+  const claimAmountBusd = new BigNumber(claimAmount).multipliedBy(usePriceCakeBusd()).toNumber()
 
   return (
-    <Wrapper>
+    <Block>
       <CardValue value={getBalanceNumber(claimAmount)} />
-      <CardValue value={claimAmountDollar} fontSize="24px" prefix="$" />
-    </Wrapper>
+      <CardBusdValue value={claimAmountBusd} />
+    </Block>
   )
 }
 
 export default CakeWinnings
 
-const Wrapper = styled.div`
- > div:nth-child(2){
-  margin-bottom: 16px;
+const Block = styled.div`
+  margin-bottom: 24px;
  }
-}
 `
